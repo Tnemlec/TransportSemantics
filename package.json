@@ -1,0 +1,22 @@
+{
+  "name": "transportsemantics",
+  "version": "1.0.0",
+  "description": "This is a school project about web datamining and sementics",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tnemlec/TransportSemantics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tnemlec/TransportSemantics/issues"
+  },
+  "homepage": "https://github.com/Tnemlec/TransportSemantics#readme",
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
