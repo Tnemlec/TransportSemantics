@@ -1,7 +1,4 @@
 docker start fuseki
 
-cd backend
-nodemon server.js
+yarn dev
 
-cd ../frontend
-yarn build
