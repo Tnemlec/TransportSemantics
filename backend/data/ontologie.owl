@@ -71,6 +71,7 @@
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/transport#nomRegion">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/transport#TrainStation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
 
