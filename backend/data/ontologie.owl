@@ -13,11 +13,38 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/transport#have -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/transport#have">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // Data properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://www.semanticweb.org/transport#coordinates -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/transport#coordinates">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
     
 
 
@@ -94,6 +121,14 @@
     
 
 
+    <!-- http://www.semanticweb.org/transport#type_transportation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/transport#type_transportation">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -109,7 +144,19 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/transport#BikeStation">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/transport#Station"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/transport#MetroStation"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/transport#TrainStation"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/transport#TramStation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/transport#MetroStation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/transport#MetroStation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/transport#Station"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/transport#TrainStation"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/transport#TramStation"/>
     </owl:Class>
     
 
@@ -123,6 +170,15 @@
     <!-- http://www.semanticweb.org/transport#TrainStation -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/transport#TrainStation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/transport#Station"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/transport#TramStation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/transport#TramStation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/transport#TramStation">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/transport#Station"/>
     </owl:Class>
 </rdf:RDF>

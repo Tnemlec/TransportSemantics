@@ -1,9 +1,13 @@
 const { default: axios } = require("axios");
 
 class FusekiClient{
-    URL_DB = 'http://localhost:3030/transport'
+    URL_DB_TRANSPORT = 'http://localhost:3030/transport'
+
+    URL_DB_METRO_TRAM = 'http://localhost:3030/metro_tram'
 
     HEADERS = {'Content-type': 'application/sparql-query'}
+
+    //TGV
 
     queryHeader(query) {
         return `
@@ -15,7 +19,7 @@ class FusekiClient{
         `
     }
 
-    getAll(){
+    getAllTGV(){
         return new Promise((resolve, reject) => {
             let req = `
                 SELECT ?subject ?predicate ?object
@@ -24,7 +28,7 @@ class FusekiClient{
                 }
             `
             let payload = this.queryHeader(req)
-            this.makeQuery(payload).then((result) => {
+            this.makeQueryTGV(payload).then((result) => {
                 resolve(result)
             }).catch((err) => {
                 reject(err)
@@ -32,7 +36,7 @@ class FusekiClient{
         })
     }
 
-    getAllStationName(){
+    getAllTGVStationName(){
         return new Promise((resolve, reject) => {
             let req = `
                 SELECT ?subject ?object
@@ -41,7 +45,7 @@ class FusekiClient{
                 }
             `
             let payload = this.queryHeader(req)
-            this.makeQuery(payload).then((result) => {
+            this.makeQueryTGV(payload).then((result) => {
                 resolve(result)
             }).catch((err) => {
                 reject(err)
@@ -49,7 +53,7 @@ class FusekiClient{
         })
     }
 
-    getAllById(id){
+    getAllTGVById(id){
         return new Promise((resolve, reject) => {
             let req = `
                 SELECT ?subject ?predicate ?object
@@ -59,7 +63,7 @@ class FusekiClient{
                 }
             `
             let payload = this.queryHeader(req)
-            this.makeQuery(payload).then((result) => {
+            this.makeQueryTGV(payload).then((result) => {
                 resolve(result)
             }).catch((err) => {
                 reject(err)
@@ -89,7 +93,7 @@ class FusekiClient{
         return formatedData
     }
 
-    formatStationName(data){
+    formatTGVStationName(data){
         let formatedData = []
         for(let i = 0; i < data.results.bindings.length; i++){
             formatedData.push({
@@ -146,9 +150,105 @@ class FusekiClient{
         return formatedData
     }
 
-    makeQuery(payload){
+    makeQueryTGV(payload){
         return new Promise((resolve, reject) => {
-            axios.post(this.URL_DB, payload, {
+            axios.post(this.URL_DB_TRANSPORT, payload, {
+                headers: this.HEADERS
+            }).then((res) => {
+                resolve(res.data)
+            }).catch((err) => {
+                reject(err)
+            })            
+        })
+
+    }
+
+    //TRAM_METRO
+
+    queryHeaderMetroTram(query){
+        return `
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX ns: <http://www.semanticweb.org/transport#>
+            PREFIX sch: <http://schema.org/>
+
+            ${query}
+        `
+    }
+
+    getMetroTramName(){
+        return new Promise((resolve, reject) => {
+            let req = `
+                SELECT DISTINCT ?object
+                WHERE {
+                    ?subject sch:givenName ?object .
+                }
+            `
+            let payload = this.queryHeader(req)
+            this.makeQueryStation(payload).then((result) => {
+                resolve(result)
+            }).catch((err) => {
+                reject(err)
+            })
+        })
+    }
+
+    getMetroTramAllByName(name){
+        return new Promise((resolve, reject) => {
+            let req = `
+                SELECT ?subject ?predicate ?object
+                WHERE {
+                    ?subject ?predicate ?object .
+                    ?subject sch:givenName '${name}' .
+                } 
+            `
+            let payload = this.queryHeader(req)
+            this.makeQueryStation(payload).then((result) => {
+                resolve(result)
+            }).catch((err) => {
+                reject(err)
+            })
+        })
+    }
+
+    formatMetroTram(data){
+        let formatedData = []
+        for(let i = 0; i < data.results.bindings.length; i++){
+            formatedData.push(data.results.bindings[i].object.value)
+        }
+        return formatedData
+    }
+
+    formatMetroTramAll(data){
+        let result = {}
+        for(let i = 0; i < data.results.bindings.length; i++){
+            switch(data.results.bindings[i].predicate.value){
+                case 'http://schema.org/givenName':
+                    result['name'] = data.results.bindings[i].object.value
+                    break;
+                case 'http://www.semanticweb.org/transport#type_transportation':
+                    if(result['ligne']){
+                        result['ligne'].push(data.results.bindings[i].object.value)
+                    }
+                    else{
+                        result['ligne'] = [data.results.bindings[i].object.value]
+                    }
+                    break;
+                case 'http://www.semanticweb.org/transport#coordinate':
+                    if(parseFloat(data.results.bindings[i].object.value) > 20){
+                        result['longitude'] = parseFloat(data.results.bindings[i].object.value)
+                    }
+                    else{
+                        result['latitude'] = parseFloat(data.results.bindings[i].object.value)
+                    }   
+                    break;
+            }  
+        }
+        return result
+    }
+
+    makeQueryStation(payload){
+        return new Promise((resolve, reject) => {
+            axios.post(this.URL_DB_METRO_TRAM, payload, {
                 headers: this.HEADERS
             }).then((res) => {
                 resolve(res.data)

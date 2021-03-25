@@ -18,6 +18,7 @@ if (app.settings.env === "development") {
 app.use(cors());
 app.use(express.static('public'));
 
+//Weather
 app.get('/api/weather', (req, res) => {
     axios.get(`http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_KEY}&q=Paris`).then((r) => {
         if (r)
@@ -27,8 +28,9 @@ app.get('/api/weather', (req, res) => {
     });
 });
 
-app.get('/api/all', (req, res) => {
-    fusekiClient.getAll().then((data) => {
+//TGV
+app.get('/api/TGV/all', (req, res) => {
+    fusekiClient.getAllTGV().then((data) => {
         res.send(fusekiClient.formatAll(data))
     }).catch((err) => {
         console.log(err)
@@ -36,18 +38,18 @@ app.get('/api/all', (req, res) => {
     })
 })
 
-app.get('/api/stationName', (req, res) => {
-    fusekiClient.getAllStationName().then((data) => {
-        res.send(fusekiClient.formatStationName(data))
+app.get('/api/TGV/stationName', (req, res) => {
+    fusekiClient.getAllTGVStationName().then((data) => {
+        res.send(fusekiClient.formatTGVStationName(data))
     }).catch((err) => {
         console.log(err)
         res.send('Something went wrong')
     })
 });
 
-app.get('/api/getId', (req, res) => {
+app.get('/api/TGV/getId', (req, res) => {
     if(req.query.id){
-        fusekiClient.getAllById(parseInt(req.query.id)).then((data) => {
+        fusekiClient.getAllTGVById(parseInt(req.query.id)).then((data) => {
             res.send(fusekiClient.formatIdData(data))
         }).catch((err) => {
             console.log(err)
@@ -60,8 +62,31 @@ app.get('/api/getId', (req, res) => {
     }
 })
 
+//Metro & Tram
+app.get('/api/MetroTram/getNames', (req, res) => {
+    fusekiClient.getMetroTramName().then((data) => {
+        res.send(fusekiClient.formatMetroTram(data))
+    }).catch((err) => {
+        console.log(err)
+        res.send('Something went wrong')
+    });
+});
+
+app.get('/api/MetroTram/getAllByName', (req, res) =>  {
+    if(req.query.name){
+        fusekiClient.getMetroTramAllByName(req.query.name).then((data) => {
+            res.send(fusekiClient.formatMetroTramAll(data))
+        }).catch((err) => {
+            console.log(err)
+            res.send('Something went wrong')
+        });
+    }
+    else{
+        res.send('No station name provided')
+    }
+});
+
 app.get('/', (req, res) => {
-    fusekiClient.getAll()
     res.send('Hello');
 });
 
