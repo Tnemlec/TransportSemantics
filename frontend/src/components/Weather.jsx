@@ -27,7 +27,7 @@ class Weather extends Component {
 
     render() {
         return (
-            <div className="Card">
+            <div className="Weather">
                 <img src={this.state.url} alt="weather"></img>
                 <h2>Aujourd'hui à Paris</h2>
                 <p>Température: {this.state.temp}°C</p>

@@ -1,28 +1,91 @@
 .App {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  justify-content: space-between;
 }
 
 .Map {
   position: absolute;
   z-index: 1;
   grid-column: 1/3;
+  height: 100vh;
+  width: 100%;
 }
 
-.Card {
+.Sidebar {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.Sidebar h2 {
+  color: #616161;
+}
+
+.Trip:hover h2, .Stations:hover h2{
+  color: #3b3c3f;
+}
+
+.Trip {
+  background: white;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.Stations {
+  background: white;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.Trip h2::after, .Stations h2::after {
+  content: "🔽";
+}
+
+.Trip:hover h2::after, .Stations:hover h2::after{
+  content: "🔼";
+}
+
+.Content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s;
+}
+
+.Stations:hover .Content, .Trip:hover .Content{
+  max-height: 1in;
+}
+
+.Weather {
   grid-column: 3;
   border-radius: 8px;
   z-index: 2;
   display: flex;
-  background-color: white;
+  background: white;
   padding: 15px;
-  margin: 15px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: fit-content;
 }
 
-.Card img {
+.Weather img {
   height: auto;
   width: 40px;
+}
+
+@media only screen and (max-width: 1300px){
+  .App {
+    display: flex;
+  }
+
+  .Weather {
+    border-radius: 0;
+  }
+
+  .Stations {
+    border-radius: 0;
+  }
 }

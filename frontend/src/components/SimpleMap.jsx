@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import { Component } from 'react';
+import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
+import logo from '../marker.png';
 
 class SimpleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: 48.85,
-      lng: 2.34
-    },
-    zoom: 13
-  };
+    render() {
+        const Map = ReactMapboxGl({
+            accessToken:
+                'pk.eyJ1IjoiYXVyc2VuIiwiYSI6ImNrbXAzMHBjZjB4bzUydnBlMnB1dXQ2N2IifQ.bJriM7H_lhQ6FTBpTBXRKA'
+        });
 
-  render() {
-    return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }} className="Map">
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: '' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-        </GoogleMapReact>
-      </div>
-    );
-  }
+        return (
+            <Map
+                style="mapbox://styles/mapbox/streets-v9"
+                className="Map"
+                center={[2.34, 48.85]}
+                zoom={[12]}
+            >
+                <Marker coordinates={[2.34, 48.85]}>
+                    <img src={logo} />
+                </Marker>
+            </Map>
+        );
+    }
 }
 
 export default SimpleMap;
