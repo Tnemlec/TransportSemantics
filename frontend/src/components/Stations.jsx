@@ -12,7 +12,7 @@ class Stations extends Component {
     }
 
     handleSelect = (index) => {
-        axios.get(`http://localhost:8080/api/getId?id=${index}`).then((req) => {
+        axios.get(`http://localhost:8080/api/TGV/getId?id=${index}`).then((req) => {
             if (req) {
                 const selection = req.data;
                 this.setState({ selection });
@@ -22,7 +22,7 @@ class Stations extends Component {
     };
 
     getNames = () => {
-        axios.get(`http://localhost:8080/api/stationName`).then((req) => {
+        axios.get(`http://localhost:8080/api/TGV/stationName`).then((req) => {
             if (req) {
                 const names = req.data;
                 this.handleSelect(names[0].id);
