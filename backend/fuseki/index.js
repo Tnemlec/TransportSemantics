@@ -70,9 +70,19 @@ class FusekiClient{
     formatAll(data){
         let formatedData = []
         for(let i = 0; i < data.results.bindings.length; i++){
+            let predicate = ''
+            if(data.results.bindings[i].predicate.value.split('#')[1]){
+                predicate = data.results.bindings[i].predicate.value.split('#')[1]
+            }
+            else{
+                predicate = data.results.bindings[i].predicate.value.split('/')[3]
+            }
+            if(data.results.bindings[i].object.datatype == 'http://www.w3.org/2001/XMLSchema#integer' || data.results.bindings[i].object.datatype == 'http://www.w3.org/2001/XMLSchema#double'){
+                data.results.bindings[i].object.value = parseFloat(data.results.bindings[i].object.value)
+            }
             formatedData.push({
                 id: data.results.bindings[i].subject.value.split('/')[3],
-                predicate: data.results.bindings[i].predicate.value.split('#')[1],
+                predicate: predicate,
                 object: data.results.bindings[i].object.value
             })
         }
