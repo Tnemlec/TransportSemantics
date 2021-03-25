@@ -8,16 +8,25 @@ class SimpleMap extends Component {
             accessToken:
                 'pk.eyJ1IjoiYXVyc2VuIiwiYSI6ImNrbXAzMHBjZjB4bzUydnBlMnB1dXQ2N2IifQ.bJriM7H_lhQ6FTBpTBXRKA'
         });
+        const marker = this.props.marker;
+        const coord = [marker.longitude, marker.latitude];
+        //const pins = this.props.marker.map((el) => <Marker coordinates={el}><img src={logo} /></Marker>);
 
         return (
             <Map
-                style="mapbox://styles/mapbox/streets-v9"
+                // eslint-disable-next-line
+                style="mapbox://styles/mapbox/streets-v10"
                 className="Map"
-                center={[2.34, 48.85]}
-                zoom={[12]}
+                center={coord}
+                zoom={[13]}
             >
-                <Marker coordinates={[2.34, 48.85]}>
-                    <img src={logo} />
+                <Marker coordinates={coord}>
+                    <div className="Card">
+                        <p><strong>Nom:</strong> {marker.givenName}</p>
+                        <p><strong>Région:</strong> {marker.nomRegion} ({marker.numeroRegion})</p>
+                        <p><strong>Département:</strong> {marker.nomDepartement} ({marker.numeroDepartement})</p>
+                    </div>
+                    <img src={logo} alt="marker" />
                 </Marker>
             </Map>
         );

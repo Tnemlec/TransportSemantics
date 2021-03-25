@@ -1,36 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
-class Stations extends Component {
-    state = {
-        selection: {},
-        names: []
-    };
-
-    componentDidMount() {
-        this.getNames();
-    }
-
-    handleSelect = (index) => {
-        axios.get(`http://localhost:8080/api/getId?id=${index}`).then((req) => {
-            if (req) {
-                const selection = req.data;
-                this.setState({ selection });
-                this.props.updateMarker(selection);
-            }
-        });
-    };
-
-    getNames = () => {
-        axios.get(`http://localhost:8080/api/stationName`).then((req) => {
-            if (req) {
-                const names = req.data;
-                this.handleSelect(names[0].id);
-                this.setState({ names });
-            }
-        });
-    }
-
+class MetroMap extends Component {
     render() {
         return (
             <div className="Stations">
@@ -63,4 +33,4 @@ const Informations = ({ station }) => (
     </div>
 );
 
-export default Stations;
+export default MetroMap;
