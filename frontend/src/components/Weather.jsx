@@ -13,7 +13,6 @@ class Weather extends Component {
     }
 
     fetchAPI = () => {
-        console.log("woaw");
         axios.get(`http://localhost:8080/api/weather`).then((req) => {
             if (req) {
                 const current = req.data.current;

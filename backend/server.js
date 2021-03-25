@@ -8,7 +8,7 @@ const port = 8080;
 if (app.settings.env === "development") {
     let result = dotenv.config();
     if (result.error) {
-        throw result.error
+        throw result.error;
     }
 }
 
@@ -25,9 +25,9 @@ app.get('/api/weather', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello')
+    res.send('Hello');
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at http://localhost:${port}`);
 });
