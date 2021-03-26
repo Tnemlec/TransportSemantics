@@ -198,7 +198,7 @@ class FusekiClient{
                 SELECT ?subject ?predicate ?object
                 WHERE {
                     ?subject ?predicate ?object .
-                    ?subject sch:givenName '${name}' .
+                    ?subject sch:givenName "${name}" .
                 } 
             `
             let payload = this.queryHeader(req)
