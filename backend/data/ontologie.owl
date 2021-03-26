@@ -13,25 +13,6 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.semanticweb.org/transport#have -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/transport#have">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
     // Data properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +25,8 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/transport#coordinates">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/transport#MetroStation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/transport#TramStation"/>
     </owl:DatatypeProperty>
     
 
@@ -125,6 +108,8 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/transport#type_transportation">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/transport#MetroStation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/transport#TramStation"/>
     </owl:DatatypeProperty>
     
 
