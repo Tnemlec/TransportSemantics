@@ -24,7 +24,7 @@ class Stations extends Component {
     getNames = () => {
         axios.get(`http://localhost:8080/api/TGV/stationName`).then((req) => {
             if (req) {
-                const names = req.data;
+                const names = req.data.sort((a,b) => a.station_name > b.station_name ? 1 : (b.station_name > a.station_name ? -1 : 0));
                 this.handleSelect(names[0].id);
                 this.setState({ names });
             }

@@ -26,7 +26,7 @@ class MetroMap extends Component {
     getNames = () => {
         axios.get(`http://localhost:8080/api/MetroTram/getNames`).then((req) => {
             if (req) {
-                const names = req.data;
+                const names = req.data.sort();
                 this.handleSelect(names[0]);
                 this.setState({ names });
             }
